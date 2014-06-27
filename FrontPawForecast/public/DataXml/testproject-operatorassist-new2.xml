@@ -1,0 +1,1535 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Forecast>
+	<!-- this goes away = now have EconomicUnit -->
+	<!-- <EuName>Test Household - Simple Demo - Benchmark</EuName>  -->
+	<PeriodZero>2011-12</PeriodZero>
+	<PeriodCount>12</PeriodCount>
+	<ReportFreq>M</ReportFreq>
+	<EconomicUnit>
+		<Name>Test Household - Simple Demo - Benchmark</Name>
+		<AsOfDate>2011-12</AsOfDate>
+		<Demographics/>
+		<!--We are not doing Demographics for now-->
+		<Ebbs>
+			<Ebb>
+				<Name>Basic Income</Name>
+				<UserName>Monthly Income</UserName>
+				<Params>
+					<Param>
+						<Name>Current Monthly Income</Name>
+						<Value>5,207</Value>
+					</Param>
+				</Params>
+			</Ebb>
+			<Ebb>
+				<Name>General Expense</Name>
+				<UserName>Monthly Expense</UserName>
+				<Params>
+					<Param>
+						<Name>Current Monthly Expense</Name>
+						<Value>0</Value>
+					</Param>
+				</Params>
+			</Ebb>
+			<Ebb>
+				<Name>General Expense</Name>	
+				<UserName>Rent</UserName>
+				<Params>
+					<Param>
+						<Name>Current Monthly Expense</Name>
+						<Value>0</Value>
+					</Param>
+				</Params>
+			</Ebb>
+			<Ebb>
+				<Name>Basic Retirement Account</Name>
+				<UserName>Savings, Investments, Retirement</UserName>
+				<Params>
+					<Param>
+						<Name>Current Balance</Name>
+						<Value>216,333</Value>
+					</Param>
+				</Params>
+			</Ebb>
+			<Ebb>
+				<Name>House</Name>
+				<UserName>Real Estate</UserName>
+				<Params>
+					<Param>
+						<Name>Current Value</Name>
+						<Value>151,651</Value>
+					</Param>
+				</Params>
+			</Ebb>
+			<Ebb>
+				<Name>Fixed-Rate Mortgage</Name>
+				<UserName>Mortgage Debt</UserName>
+				<Params>
+					<Param>
+						<Name>Current Balance</Name>
+						<Value>95,975</Value>
+					</Param>
+					<Param>
+						<Name>Remaining Term</Name>
+						<Value>18</Value>
+					</Param>
+					<Param>
+						<Name>Interest Rate</Name>
+						<Value>5%</Value>
+					</Param>
+					<Param>
+						<Name>Term Inputs As Years</Name>
+						<Value>YES</Value>
+					</Param>
+				</Params>C
+			</Ebb>
+			<Ebb>
+				<Name>Basic Term Loan</Name>
+				<UserName>Car Loan Debt</UserName>
+				<Params>
+					<Param>
+						<Name>Current Balance</Name>
+						<Value>10,000</Value>
+					</Param>
+					<Param>
+						<Name>Remaining Term</Name>
+						<Value>24</Value>
+					</Param>
+					<Param>
+						<Name>Interest Rate</Name>
+						<Value>7.5%</Value>
+					</Param>
+				</Params>
+			</Ebb>
+			<Ebb>
+				<Name>Basic Revolving Loan</Name>
+				<UserName>Credit Cards and Equity Loans</UserName>
+				<Params>
+					<Param>
+						<Name>Current Balance</Name>
+						<Value>43,673</Value>
+					</Param>
+					<Param>
+						<Name>Interest Rate</Name>
+						<Value>8</Value>
+					</Param>
+					<Param>
+						<Name>Current Monthly Payment</Name>
+						<Value>400</Value>
+					</Param>
+				</Params>
+			</Ebb>
+		</Ebbs>
+	</EconomicUnit>
+	<Log>
+		<Event>
+			<Level>WARN</Level>
+			<Message>Ebb: Basic Income, User Name: Monthly Income, No value provided for parameter: Deposit Account.  Using default value: Cash</Message>
+		</Event>
+		<Event>
+			<Level>WARN</Level>
+			<Message>Ebb: General Expense, User Name: Monthly Expense, No value provided for parameter: Source Account.  Using default value: Cash</Message>
+		</Event>
+	</Log>
+	<Periods>
+		<Period>0</Period>
+		<Period>1</Period>
+		<Period>2</Period>
+		<Period>3</Period>
+		<Period>4</Period>
+		<Period>5</Period>
+		<Period>6</Period>
+		<Period>7</Period>
+		<Period>8</Period>
+		<Period>9</Period>
+		<Period>10</Period>
+		<Period>11</Period>
+		<Period>12</Period>
+	</Periods>
+	<Dates>
+		<Date>2011-12</Date>
+		<Date>2012-01</Date>
+		<Date>2012-02</Date>
+		<Date>2012-03</Date>
+		<Date>2012-04</Date>
+		<Date>2012-05</Date>
+		<Date>2012-06</Date>
+		<Date>2012-07</Date>
+		<Date>2012-08</Date>
+		<Date>2012-09</Date>
+		<Date>2012-10</Date>
+		<Date>2012-11</Date>
+		<Date>2012-12</Date>
+	</Dates>
+	<Models>
+		<Model>
+			<!-- this goes away... just use Model.Name -->
+			<!-- <ModelName>Simple Demo - Base Case Model</ModelName>  -->
+			<Name>Simple Demo - Base Case Model</Name>
+			<Assumptions>
+				<Assumption>
+					<Name>Investment Return Rate</Name>
+					<ConstantValue>2%</ConstantValue>
+				</Assumption>
+				<Assumption>
+					<Name>House Price Appreciation Rate</Name>
+					<ConstantValue>0%</ConstantValue>
+				</Assumption>
+			</Assumptions>
+			<Events>
+				<EbbUserSetParamEvent>
+					<Name>Change By Percent</Name>
+					<UserName>Reduce Expenses</UserName>
+					<EbbName>General Expense</EbbName>
+					<EbbUserName>Monthly Expense</EbbUserName>
+					<EbbCommonTag/>
+					<EbbUserSetParamName>Current Monthly Expense</EbbUserSetParamName>
+					<Value>-5%</Value>
+					<EventTiming>
+						<OneTime>
+							<FixedPeriod>2</FixedPeriod>
+						</OneTime>
+					</EventTiming>
+				</EbbUserSetParamEvent>
+				<EbbUserSetParamEvent>
+					<Name>Change By Amount</Name>
+					<UserName>Start Rent</UserName>
+					<EbbName>General Expense</EbbName>
+					<EbbUserName>Rent</EbbUserName>
+					<EbbCommonTag/>
+					<EbbUserSetParamName>Current Monthly Expense</EbbUserSetParamName>
+					<Value>500</Value>
+					<EventTiming>
+						<OneTime>
+							<FixedPeriod>7</FixedPeriod>
+						</OneTime>
+					</EventTiming>
+				</EbbUserSetParamEvent>
+				<GeneralEvent>
+					<Name>Sell House</Name>
+					<UserName>Sell Real Estate</UserName>
+					<EventTiming>
+						<OneTime>
+							<FixedPeriod>6</FixedPeriod>
+						</OneTime>
+					</EventTiming>
+					<Params>
+						<Param>
+							<Name>House</Name>
+							<Value>Real Estate</Value>
+						</Param>
+						<Param>
+							<Name>Selling Price Amount</Name>
+							<Value>200,000</Value>
+						</Param>
+						<Param>
+							<Name>Closing Costs Percent</Name>
+							<Value>6%</Value>
+						</Param>
+					</Params>
+				</GeneralEvent>
+			</Events>
+			<Strategies>
+				<GeneralStrategy>
+					<Name>Plug Expense From Savings Rate</Name>
+					<UserName>Target Savings Rate</UserName>
+					<Params>
+						<Param>
+							<Name>Expense Account</Name>
+							<Value>Monthly Expense</Value>
+						</Param>
+						<Param>
+							<Name>Target Savings Rate</Name>
+							<Value>3.3%</Value>
+						</Param>
+					</Params>
+					<StrategyTiming>
+						<OneTime>
+							<FixedPeriod>1</FixedPeriod>
+						</OneTime>
+					</StrategyTiming>
+				</GeneralStrategy>
+				<GeneralStrategy>
+					<Name>Maintain Reserve Balance</Name>
+					<UserName>Draw from credit card to keep cash positive</UserName>
+					<Params>
+						<Param>
+							<Name>Reserve Balance Account</Name>
+							<Value>Cash</Value>
+						</Param>
+						<Param>
+							<Name>Source Account</Name>
+							<Value>Credit Cards and Equity Loans</Value>
+						</Param>
+					</Params>
+					<StrategyTiming>
+						<Perpetual/>
+					</StrategyTiming>
+				</GeneralStrategy>
+				<GeneralStrategy>
+					<Name>Reduce Debt With Assets</Name>
+					<UserName>Reduce Debt</UserName>
+					<Params>
+						<Param>
+							<Name>Percent Of Debt</Name>
+							<Value>20%</Value>
+						</Param>
+						<Param>
+							<Name>Use Retirement Assets</Name>
+							<Value>YES</Value>
+						</Param>
+					</Params>
+					<StrategyTiming>
+						<OneTime>
+							<FixedPeriod>2</FixedPeriod>
+						</OneTime>
+					</StrategyTiming>
+				</GeneralStrategy>
+				<GeneralStrategy>
+					<Name>Reduce Debt</Name>
+					<UserName>Reduce debt with excess cash</UserName>
+					<Params/>
+					<StrategyTiming>
+						<Perpetual/>
+					</StrategyTiming>
+				</GeneralStrategy>
+			</Strategies>
+		</Model>
+	</Models>
+	<Metrics>
+		<ModelData>
+			<Name>Simple Demo - Base Case Model</Name>
+			<AssumptionsMetrics>
+				<Assumption>
+					<Name>Investment Return Rate</Name>
+					<Values>
+						
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+						<Value>2.00</Value>
+					</Values>
+				</Assumption>
+				<Assumption>
+					<Name>House Price Appreciation Rate</Name>
+					<Values>
+						
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+						<Value>0.00</Value>
+					</Values>
+				</Assumption>
+			</AssumptionsMetrics>
+			<EventsMetrics>
+				<Event>
+					<Name>Reduce Expenses</Name>
+					<EventType>EbbUserSetParamEvent</EventType>
+					<Periods>
+						<Period>2</Period>
+					</Periods>
+					<Dates>
+						<Date>2012-02</Date>
+					</Dates>
+					<Values>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>1</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+					</Values>
+				</Event>
+				<Event>
+					<Name>Start Rent</Name>
+					<EventType>EbbUserSetParamEvent</EventType>
+					<Periods>
+						<Period>7</Period>
+					</Periods>
+					<Dates>
+						<Date>2012-07</Date>
+					</Dates>
+					<Values>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>1</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+					</Values>
+				</Event>
+				<Event>
+					<Name>Sell Real Estate</Name>
+					<EventType>GeneralEvent</EventType>
+					<Periods>
+						<Period>6</Period>
+					</Periods>
+					<Dates>
+						<Date>2012-06</Date>
+					</Dates>
+					<Values>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>1</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+					</Values>
+				</Event>
+			</EventsMetrics>
+			<StrategiesMetrics>
+				<Strategy>
+					<UserName>Target Savings Rate</UserName>
+					<Periods>
+						<Period>1</Period>
+					</Periods>
+					<Dates>
+						<Date>2012-01</Date>
+					</Dates>
+					<Values>
+						<Value>0</Value>
+						<Value>1</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+					</Values>
+				</Strategy>
+				<Strategy>
+					<UserName>Draw from credit card to keep cash positive</UserName>
+					<Periods>
+						<Period>1</Period>
+						<Period>2</Period>
+						<Period>3</Period>
+						<Period>4</Period>
+						<Period>5</Period>
+						<Period>6</Period>
+						<Period>7</Period>
+						<Period>8</Period>
+						<Period>9</Period>
+						<Period>10</Period>
+						<Period>11</Period>
+						<Period>12</Period>
+					</Periods>
+					<Dates>
+						<Date>2012-01</Date>
+						<Date>2012-02</Date>
+						<Date>2012-03</Date>
+						<Date>2012-04</Date>
+						<Date>2012-05</Date>
+						<Date>2012-06</Date>
+						<Date>2012-07</Date>
+						<Date>2012-08</Date>
+						<Date>2012-09</Date>
+						<Date>2012-10</Date>
+						<Date>2012-11</Date>
+						<Date>2012-12</Date>
+					</Dates>
+					<Values>
+						<Value>0</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+					</Values>
+				</Strategy>
+				<Strategy>
+					<UserName>Reduce Debt</UserName>
+					<Periods>
+						<Period>2</Period>
+					</Periods>
+					<Dates>
+						<Date>2012-02</Date>
+					</Dates>
+					<Values>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>1</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+						<Value>0</Value>
+					</Values>
+				</Strategy>
+				<Strategy>
+					<UserName>Reduce debt with excess cash</UserName>
+					<Periods>
+						<Period>1</Period>
+						<Period>2</Period>
+						<Period>3</Period>
+						<Period>4</Period>
+						<Period>5</Period>
+						<Period>6</Period>
+						<Period>7</Period>
+						<Period>8</Period>
+						<Period>9</Period>
+						<Period>10</Period>
+						<Period>11</Period>
+						<Period>12</Period>
+					</Periods>
+					<Dates>
+						<Date>2012-01</Date>
+						<Date>2012-02</Date>
+						<Date>2012-03</Date>
+						<Date>2012-04</Date>
+						<Date>2012-05</Date>
+						<Date>2012-06</Date>
+						<Date>2012-07</Date>
+						<Date>2012-08</Date>
+						<Date>2012-09</Date>
+						<Date>2012-10</Date>
+						<Date>2012-11</Date>
+						<Date>2012-12</Date>
+					</Dates>
+					<Values>
+						<Value>0</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+						<Value>1</Value>
+					</Values>
+				</Strategy>
+			</StrategiesMetrics>
+			<EconMetrics>
+				<Financials>
+					<Statement>
+						<StatementType>Income Statement</StatementType>
+						<Measure>
+							<MeasureType>Income</MeasureType>
+							<Account>Gain on House Value: Real Estate</Account>
+							<EbbName>House</EbbName>
+							<EbbUserName>Real Estate</EbbUserName>
+							<EconTag>Income.House.Gain</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>48349.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Income</MeasureType>
+							<Account>Income: Monthly Income</Account>
+							<EbbName>Basic Income</EbbName>
+							<EbbUserName>Monthly Income</EbbUserName>
+							<EconTag>Income.General</EconTag>
+							<Values>
+								
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Income</MeasureType>
+							<Account>Investment Income:Savings, Investments, Retirement</Account>
+							<EbbName>Basic Retirement Account</EbbName>
+							<EbbUserName>Savings, Investments, Retirement</EbbUserName>
+							<EconTag>Income.Investment</EconTag>
+							<Values>
+								
+								<Value>360.56</Value>
+								<Value>361.16</Value>
+								<Value>299.35</Value>
+								<Value>299.85</Value>
+								<Value>300.35</Value>
+								<Value>300.85</Value>
+								<Value>301.35</Value>
+								<Value>301.86</Value>
+								<Value>302.36</Value>
+								<Value>302.86</Value>
+								<Value>303.37</Value>
+								<Value>303.87</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Early Withdrawal Fee: Savings, Investments, Retirement</Account>
+							<EbbName>Basic Retirement Account</EbbName>
+							<EbbUserName>Savings, Investments, Retirement</EbbUserName>
+							<EconTag>Expense.Fee.Withdrawal</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>7488.61</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Expense: Monthly Expense</Account>
+							<EbbName>General Expense</EbbName>
+							<EbbUserName>Monthly Expense</EbbUserName>
+							<EconTag>Expense.General</EconTag>
+							<Values>
+								
+								<Value>4630.28</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Expense: Rent</Account>
+							<EbbName>General Expense</EbbName>
+							<EbbUserName>Rent</EbbUserName>
+							<EconTag>Expense.General</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Fixed-Rate Mortgage Interest Expense: Mortgage Debt</Account>
+							<EbbName>Fixed-Rate Mortgage</EbbName>
+							<EbbUserName>Mortgage Debt</EbbUserName>
+							<EconTag>Expense.Interest.Mortgage</EconTag>
+							<Values>
+								
+								<Value>399.90</Value>
+								<Value>398.75</Value>
+								<Value>397.60</Value>
+								<Value>396.45</Value>
+								<Value>395.29</Value>
+								<Value>394.12</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Home Sell Closing Costs: Real Estate</Account>
+							<EventName>Sell House</EventName>
+							<EventUserName>Sell Real Estate</EventUserName>
+							<EconTag>Expense.Housing</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>12000.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>House Maintenance: Real Estate</Account>
+							<EbbName>House</EbbName>
+							<EbbUserName>Real Estate</EbbUserName>
+							<EconTag>Expense.House.Maintenance</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Property Tax on House: Real Estate</Account>
+							<EbbName>House</EbbName>
+							<EbbUserName>Real Estate</EbbUserName>
+							<EconTag>Expense.Tax.Property</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Revolving Loan Interest Expense: Credit Cards and Equity Loans</Account>
+							<EbbName>Basic Revolving Loan</EbbName>
+							<EbbUserName>Credit Cards and Equity Loans</EbbUserName>
+							<EconTag>Expense.Interest.Loan</EconTag>
+							<Values>
+								
+								<Value>291.15</Value>
+								<Value>296.75</Value>
+								<Value>101.14</Value>
+								<Value>103.92</Value>
+								<Value>106.73</Value>
+								<Value>109.55</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Expense</MeasureType>
+							<Account>Term Loan Interest Expense: Car Loan Debt</Account>
+							<EbbName>Basic Term Loan</EbbName>
+							<EbbUserName>Car Loan Debt</EbbUserName>
+							<EconTag>Expense.Interest.Loan</EconTag>
+							<Values>
+								
+								<Value>62.50</Value>
+								<Value>60.08</Value>
+								<Value>57.64</Value>
+								<Value>55.19</Value>
+								<Value>52.72</Value>
+								<Value>50.24</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Total Income</Name>
+							<Values>
+								
+								<Value>5567.56</Value>
+								<Value>5568.16</Value>
+								<Value>5506.35</Value>
+								<Value>5506.85</Value>
+								<Value>5507.35</Value>
+								<Value>53856.85</Value>
+								<Value>5508.35</Value>
+								<Value>5508.86</Value>
+								<Value>5509.36</Value>
+								<Value>5509.86</Value>
+								<Value>5510.37</Value>
+								<Value>5510.87</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Total Expense</Name>
+							<Values>
+								
+								<Value>5383.83</Value>
+								<Value>12642.95</Value>
+								<Value>4955.15</Value>
+								<Value>4954.33</Value>
+								<Value>4953.50</Value>
+								<Value>16952.67</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Net Income</Name>
+							<Values>
+								
+								<Value>183.73</Value>
+								<Value>-7074.79</Value>
+								<Value>551.21</Value>
+								<Value>552.53</Value>
+								<Value>553.85</Value>
+								<Value>36904.18</Value>
+								<Value>609.59</Value>
+								<Value>610.09</Value>
+								<Value>610.59</Value>
+								<Value>611.10</Value>
+								<Value>611.60</Value>
+								<Value>612.11</Value>
+							</Values>
+						</Measure>
+					</Statement>
+					<Statement>
+						<StatementType>Balance Sheet</StatementType>
+						<Measure>
+							<MeasureType>Asset</MeasureType>
+							<Account>Cash: Cash</Account>
+							<EbbName>Cash</EbbName>
+							<EbbUserName>Cash</EbbUserName>
+							<EconTag>Asset.Cash</EconTag>
+							<Values>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>69194.62</Value>
+								<Value>69502.85</Value>
+								<Value>69811.08</Value>
+								<Value>70119.31</Value>
+								<Value>70427.55</Value>
+								<Value>70735.78</Value>
+								<Value>71044.02</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Asset</MeasureType>
+							<Account>House: Real Estate</Account>
+							<EbbName>House</EbbName>
+							<EbbUserName>Real Estate</EbbUserName>
+							<EconTag>Asset.House</EconTag>
+							<Values>
+								<Value>151651.00</Value>
+								<Value>151651.00</Value>
+								<Value>151651.00</Value>
+								<Value>151651.00</Value>
+								<Value>151651.00</Value>
+								<Value>151651.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Asset</MeasureType>
+							<Account>Investment: Savings, Investments, Retirement</Account>
+							<EbbName>Basic Retirement Account</EbbName>
+							<EbbUserName>Savings, Investments, Retirement</EbbUserName>
+							<EconTag>Asset.Investment</EconTag>
+							<Values>
+								<Value>216333.00</Value>
+								<Value>216693.56</Value>
+								<Value>179611.67</Value>
+								<Value>179911.02</Value>
+								<Value>180210.88</Value>
+								<Value>180511.23</Value>
+								<Value>180812.08</Value>
+								<Value>181113.43</Value>
+								<Value>181415.29</Value>
+								<Value>181717.65</Value>
+								<Value>182020.51</Value>
+								<Value>182323.88</Value>
+								<Value>182627.75</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Liability</MeasureType>
+							<Account>Fixed-Rate Mortgage: Mortgage Debt</Account>
+							<EbbName>Fixed-Rate Mortgage</EbbName>
+							<EbbUserName>Mortgage Debt</EbbUserName>
+							<EconTag>Liability.Mortgage.Fixed</EconTag>
+							<Values>
+								<Value>95975.00</Value>
+								<Value>95700.16</Value>
+								<Value>95424.17</Value>
+								<Value>95147.04</Value>
+								<Value>94868.75</Value>
+								<Value>94589.30</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Liability</MeasureType>
+							<Account>Revolving Loan: Credit Cards and Equity Loans</Account>
+							<EbbName>Basic Revolving Loan</EbbName>
+							<EbbUserName>Credit Cards and Equity Loans</EbbUserName>
+							<EconTag>Liability.Loan.Revolving</EconTag>
+							<Values>
+								<Value>43673.00</Value>
+								<Value>44512.17</Value>
+								<Value>15170.98</Value>
+								<Value>15588.62</Value>
+								<Value>16009.04</Value>
+								<Value>16432.27</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Liability</MeasureType>
+							<Account>Term Loan: Car Loan Debt</Account>
+							<EbbName>Basic Term Loan</EbbName>
+							<EbbUserName>Car Loan Debt</EbbUserName>
+							<EconTag>Liability.Loan.Term</EconTag>
+							<Values>
+								<Value>10000.00</Value>
+								<Value>9612.50</Value>
+								<Value>9222.59</Value>
+								<Value>8830.23</Value>
+								<Value>8435.42</Value>
+								<Value>8038.15</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Total Assets</Name>
+							<Values>
+								<Value>367984.00</Value>
+								<Value>368344.56</Value>
+								<Value>331262.67</Value>
+								<Value>331562.02</Value>
+								<Value>331861.88</Value>
+								<Value>332162.23</Value>
+								<Value>250006.69</Value>
+								<Value>250616.28</Value>
+								<Value>251226.37</Value>
+								<Value>251836.96</Value>
+								<Value>252448.06</Value>
+								<Value>253059.66</Value>
+								<Value>253671.77</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Total Liabilities</Name>
+							<Values>
+								<Value>149648.00</Value>
+								<Value>149824.83</Value>
+								<Value>119817.74</Value>
+								<Value>119565.89</Value>
+								<Value>119313.21</Value>
+								<Value>119059.71</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Net Worth</Name>
+							<Values>
+								<Value>218336.00</Value>
+								<Value>218519.73</Value>
+								<Value>211444.93</Value>
+								<Value>211996.14</Value>
+								<Value>212548.66</Value>
+								<Value>213102.51</Value>
+								<Value>250006.69</Value>
+								<Value>250616.28</Value>
+								<Value>251226.37</Value>
+								<Value>251836.96</Value>
+								<Value>252448.06</Value>
+								<Value>253059.66</Value>
+								<Value>253671.77</Value>
+							</Values>
+						</Measure>
+					</Statement>
+					<Statement>
+						<StatementType>Cashflow</StatementType>
+						<Measure>
+							<MeasureType>Inflow</MeasureType>
+							<Account>Basic Income: Monthly Income</Account>
+							<EbbName>Basic Income</EbbName>
+							<EbbUserName>Monthly Income</EbbUserName>
+							<EconTag>Cash.Inflow</EconTag>
+							<Values>
+								
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+								<Value>5207.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Inflow</MeasureType>
+							<Account>Basic Retirement Account: Savings, Investments, Retirement</Account>
+							<EbbName>Basic Retirement Account</EbbName>
+							<EbbUserName>Savings, Investments, Retirement</EbbUserName>
+							<EconTag>Cash.Inflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>29954.43</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Inflow</MeasureType>
+							<Account>Basic Retirement Account: Savings, Investments, Retirement</Account>
+							<EbbName>Basic Retirement Account</EbbName>
+							<EbbUserName>Savings, Investments, Retirement</EbbUserName>
+							<EconTag>Cash.Inflow</EconTag>
+							<Values>
+								
+								<Value>360.56</Value>
+								<Value>361.16</Value>
+								<Value>299.35</Value>
+								<Value>299.85</Value>
+								<Value>300.35</Value>
+								<Value>300.85</Value>
+								<Value>301.35</Value>
+								<Value>301.86</Value>
+								<Value>302.36</Value>
+								<Value>302.86</Value>
+								<Value>303.37</Value>
+								<Value>303.87</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Inflow</MeasureType>
+							<Account>Sell House: Sell Real Estate</Account>
+							<EventName>Sell House</EventName>
+							<EventUserName>Sell Real Estate</EventUserName>
+							<EconTag>Cash.Inflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>200000.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Inflow</MeasureType>
+							<Account>Maintain Reserve Balance: Draw from credit card to keep cash positive</Account>
+							<EconTag>Cash.Inflow</EconTag>
+							<Values>
+								
+								<Value>948.01</Value>
+								<Value>716.50</Value>
+								<Value>716.50</Value>
+								<Value>716.50</Value>
+								<Value>716.50</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Basic Retirement Account: Savings, Investments, Retirement</Account>
+							<EbbName>Basic Retirement Account</EbbName>
+							<EbbUserName>Savings, Investments, Retirement</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>37443.04</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Basic Revolving Loan: Credit Cards and Equity Loans</Account>
+							<EbbName>Basic Revolving Loan</EbbName>
+							<EbbUserName>Credit Cards and Equity Loans</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>29954.43</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>16141.82</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Basic Revolving Loan: Credit Cards and Equity Loans</Account>
+							<EbbName>Basic Revolving Loan</EbbName>
+							<EbbUserName>Credit Cards and Equity Loans</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>400.00</Value>
+								<Value>400.00</Value>
+								<Value>400.00</Value>
+								<Value>400.00</Value>
+								<Value>400.00</Value>
+								<Value>400.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Basic Term Loan: Car Loan Debt</Account>
+							<EbbName>Basic Term Loan</EbbName>
+							<EbbUserName>Car Loan Debt</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>7638.39</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Basic Term Loan: Car Loan Debt</Account>
+							<EbbName>Basic Term Loan</EbbName>
+							<EbbUserName>Car Loan Debt</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>450.00</Value>
+								<Value>450.00</Value>
+								<Value>450.00</Value>
+								<Value>450.00</Value>
+								<Value>450.00</Value>
+								<Value>450.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Fixed-Rate Mortgage: Mortgage Debt</Account>
+							<EbbName>Fixed-Rate Mortgage</EbbName>
+							<EbbUserName>Mortgage Debt</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>94308.68</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Fixed-Rate Mortgage: Mortgage Debt</Account>
+							<EbbName>Fixed-Rate Mortgage</EbbName>
+							<EbbUserName>Mortgage Debt</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>674.74</Value>
+								<Value>674.74</Value>
+								<Value>674.74</Value>
+								<Value>674.74</Value>
+								<Value>674.74</Value>
+								<Value>674.74</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>General Expense: Monthly Expense</Account>
+							<EbbName>General Expense</EbbName>
+							<EbbUserName>Monthly Expense</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>4630.28</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+								<Value>4398.77</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>General Expense: Rent</Account>
+							<EbbName>General Expense</EbbName>
+							<EbbUserName>Rent</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+								<Value>500.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>House: Real Estate</Account>
+							<EbbName>House</EbbName>
+							<EbbUserName>Real Estate</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>House: Real Estate</Account>
+							<EbbName>House</EbbName>
+							<EbbUserName>Real Estate</EbbUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Outflow</MeasureType>
+							<Account>Sell House: Sell Real Estate</Account>
+							<EventName>Sell House</EventName>
+							<EventUserName>Sell Real Estate</EventUserName>
+							<EconTag>Cash.Outflow</EconTag>
+							<Values>
+								
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>12000.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+								<Value>0.00</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Total Inflows</Name>
+							<Values>
+								
+								<Value>6515.57</Value>
+								<Value>36239.09</Value>
+								<Value>6222.85</Value>
+								<Value>6223.35</Value>
+								<Value>6223.85</Value>
+								<Value>205507.85</Value>
+								<Value>5508.35</Value>
+								<Value>5508.86</Value>
+								<Value>5509.36</Value>
+								<Value>5509.86</Value>
+								<Value>5510.37</Value>
+								<Value>5510.87</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Total Outflows</Name>
+							<Values>
+								
+								<Value>6155.01</Value>
+								<Value>73320.97</Value>
+								<Value>5923.50</Value>
+								<Value>5923.50</Value>
+								<Value>5923.50</Value>
+								<Value>136012.38</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+								<Value>4898.77</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Net Inflows</Name>
+							<Values>
+								
+								<Value>360.56</Value>
+								<Value>-37081.88</Value>
+								<Value>299.35</Value>
+								<Value>299.85</Value>
+								<Value>300.35</Value>
+								<Value>69495.47</Value>
+								<Value>609.58</Value>
+								<Value>610.09</Value>
+								<Value>610.59</Value>
+								<Value>611.10</Value>
+								<Value>611.60</Value>
+								<Value>612.11</Value>
+							</Values>
+						</Measure>
+						<Measure>
+							<MeasureType>Ratio</MeasureType>
+							<Name>Cum Net Inflows</Name>
+							<Values>
+								
+								<Value>360.56</Value>
+								<Value>-36721.33</Value>
+								<Value>-36421.98</Value>
+								<Value>-36122.12</Value>
+								<Value>-35821.77</Value>
+								<Value>33673.69</Value>
+								<Value>34283.28</Value>
+								<Value>34893.37</Value>
+								<Value>35503.96</Value>
+								<Value>36115.06</Value>
+								<Value>36726.66</Value>
+								<Value>37338.77</Value>
+							</Values>
+						</Measure>
+					</Statement>
+					<Statement>
+						<StatementType>Ratios</StatementType>
+					</Statement>
+				</Financials>
+			</EconMetrics>
+		</ModelData>
+	</Metrics>
+</Forecast>

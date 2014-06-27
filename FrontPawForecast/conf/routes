@@ -1,0 +1,49 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                          controllers.Application.aboutus()
+GET     /login                     controllers.Application.login()
+GET     /howitworks                controllers.Application.howitworks()
+GET     /whyitmatters              controllers.Application.whyitmatters()
+GET     /comparisiondisplay        controllers.Application.comparisiondisplay()
+GET     /getBaselinesnapShot       controllers.Application.getBaselinesnapShot()
+GET     /register                  controllers.Application.register()
+GET     /operator                  controllers.Application.operator()
+GET     /aboutus               	   controllers.Application.aboutus()
+GET     /logout               	   controllers.Application.logout()
+GET    /viewsample                 controllers.Application.viewsample()
+GET    /viewsamplereport           controllers.Application.getDefaultTemplateReport()
+GET    /comparisiondisplaysample   controllers.Application.comparisionSampleDisplay()
+GET    /baselinesample             controllers.Application.getSampleBaselinesnapShot()
+
+GET    /myaccount           	   controllers.Application.myaccount()
+GET    /privacypolicy              controllers.Application.privacypolicy()
+GET    /legalstatement             controllers.Application.legalstatement()
+GET    /termsandservice            controllers.Application.termsandservice()
+GET    /getOpsDefaultReport	  controllers.Application.getOpsDefaultReport()
+
+
+
+
+
+
+
+# Login action
+GET     /getDefaultReport         controllers.Application.getDefaultReport()
+POST    /getOpsDefaultReport	  controllers.Application.getOpsDefaultReport()
+#GET     /reloadReport   		  controllers.Application.reloadReport(dataCount:String)
+GET     /reloadReport   		  controllers.Application.reloadReport
+GET     /samplereloadReport   	  controllers.Application.reloadSampleReport
+GET     /reloadReport1   		  controllers.Application.reloadReport1()
+POST    /createUser               controllers.Application.createUser()
+POST    /updateProfile               controllers.Application.updateuser()
+POST    /checkLogin               controllers.Application.checkLogin()
+POST    /contactus                controllers.Application.contactus()
+POST    /viewsample                controllers.Application.viewsample()
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file            controllers.Assets.at(path="/public", file)

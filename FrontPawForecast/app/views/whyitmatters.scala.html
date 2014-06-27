@@ -1,0 +1,218 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Front Paw</title>
+<link  href="@routes.Assets.at("stylesheets/style_new.css")" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("css/style.css")" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--<script language="javascript" type="text/javascript" src="js/vpb_script.js"></script>-->
+<!--login alert box code ends-->
+
+
+
+<!--script for vpb_script.js start-->
+<script language="javascript">
+$(document).ready(function() 
+{	
+	$("#vpb_pop_up_background").click(function()
+	{
+		$("#vpb_signup_pop_up_box").hide(); //Hides the sign-up box when clicked outside the form
+		$("#vpb_login_pop_up_box").hide(); //Hides the login box when clicked outside the form
+		$("#vpb_pop_up_background").fadeOut("slow");
+	});
+});
+
+//This function displays the sign-up box when called
+function vpb_show_sign_up_box()
+{
+	
+	$("#vpb_pop_up_background").css({
+		"opacity": "0.4"
+	});
+	$("#vpb_pop_up_background").fadeIn("slow");
+	$("#vpb_signup_pop_up_box").fadeIn('fast');
+	window.scroll(0,0);
+}
+
+
+//This function displays the login box when called
+function vpb_show_login_box()
+{
+	//alert("yes");
+	$("#vpb_pop_up_background").css({
+		"opacity": "0.4"
+	});
+	$("#vpb_pop_up_background").fadeIn("slow");
+	$("#vpb_login_pop_up_box").fadeIn('fast');
+	window.scroll(0,0);
+	
+	
+}
+
+
+//This function hides both the Sign-up Box and Login Box when called
+function vpb_hide_popup_boxes()
+{
+	$("#vpb_signup_pop_up_box").hide(); //Hides the sign-up box when clicked outside the form
+	$("#vpb_login_pop_up_box").hide(); //Hides the login box when clicked outside the form
+	$("#vpb_pop_up_background").fadeOut("slow");
+}
+</script>
+</head>
+<body>
+
+<div id="pagewidth" class="front_border" >
+<!--Start Header-->
+<script type="text/javascript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+</head>
+<body onload="MM_preloadImages('@routes.Assets.at("images/images/index_menu_how_it_work_02.jpg")','@routes.Assets.at("images/images/index_menu_why_it_matters_02.jpg")','@routes.Assets.at("images/images/index_menu_view_my_report_02.jpg")','@routes.Assets.at("images/images/index_menu_view_sample_report_02.jpg")','@routes.Assets.at("images/images/index_menu_about_02.jpg")')">
+
+<div id="pagewidth" class="front_border" >
+ <?php include 'header.php'; ?>
+ <div id="header" class="one-edge-shadow">
+  <div id="header_logo"> <a href="@routes.Application.aboutus"><img src="@routes.Assets.at("images/images/logo.gif")" width="248" height="62" border="0"  /></a></div>
+  <div  id="header_menu">
+@if(session().get("user")!=null){  
+   <div id="table_top_right">
+      <div align="right"><div id="welcome" style='background:url(@routes.Assets.at("images/images/index_top_right_box.jpg") no-repeat; padding-top:2px;' align="left">&nbsp; <img src="@routes.Assets.at("images/images/index_icon.jpg")" width="16" height="18" />
+	  
+        <div style="margin:0px; margin-top:-17px; padding-left:30px;">@session.get("user")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-bot2"><a href="@routes.Application.aboutus">Contact Us</a> |  <a href="@routes.Application.myaccount">My Account</a> | <a href="@routes.Application.aboutus">Feedback</a> | <a href="@routes.Application.logout">Logout</a></span>
+		</div></div></div>
+    </div>
+ }else {
+    <div id="table_top_right_1">
+      <div align="right"><div id="welcome" style='background:url(@routes.Assets.at("images/images/index_top_right_box.jpg") no-repeat; padding-top:2px;' align="left">&nbsp; 
+	  
+        <div style="margin:0px; margin-top:-17px;padding-left:30px;">@session.get("user")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-bot2"><a href="@routes.Application.aboutus">Feedback</a> | <a href="@routes.Application.aboutus">Contact Us</a> |  <a href="@routes.Application.login" >Login</a></span></div>
+		
+		
+		<!--login form popup box starts-->
+		<div id="vpb_pop_up_background"></div>
+		<div id="vpb_login_pop_up_box" class="vpb_signup_pop_up_box">
+		<form method="post" action="@routes.Application.checkLogin" >
+<div align="left" style="font-family:Verdana, Geneva, sans-serif; font-size:16px; font-weight:bold;">Users Login</div><br clear="all">
+<!--<div align="left" style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">To exit this login box, click on the cancel button or outside this box..</div><br clear="all"><br clear="all"><div id="one"></div>-->
+
+<div style="width:130px; padding-top:10px;margin-left:10px;float:left;" align="left">Your Username:</div>
+<div style="width:270px;float:left;" align="left"><input type="text" id="usernames" name="usernames" value="" class="vpb_textAreaBoxInputs"></div><br clear="all"><br clear="all"><div id="one"></div>
+
+<div style="width:130px; padding-top:10px;margin-left:10px;float:left;" align="left">Your Password:</div>
+<div style="width:270px;float:left;" align="left"><input type="password" id="passs" name="passs" value="" class="vpb_textAreaBoxInputs"></div><br clear="all"><br clear="all"><div id="two"></div>
+
+<div style="width:100px; padding-top:10px;margin-left:10px;float:left;" align="left">&nbsp;</div>
+<div style="width:300px;float:left;" align="center">
+
+<!--<a href="javascript:void(0);" class="vpb_general_button" onClick="alert('Hello There!\n\n There is no functionality associated with the button you have just clicked. \n\nThis is just a demonstration of Pop-up Boxes and that\'s all.\n\nThanks.');">Login</a>-->
+<!--<a href="#" class="vpb_general_button" onClick="login(this.form);">Login</a>
+-->
+<input type="image" src="@routes.Assets.at("images/images/login.jpg")" alt="Send Email" width="47" height="20" class="img_top_pad"/>
+<img src="@routes.Assets.at("images/images/cancel.jpg")" alt="Send Email" width="47" height="20" class="img_top_pad" onClick="vpb_hide_popup_boxes();"/>
+
+
+<!--<a href="javascript:void(0);" class="vpb_general_button" onClick="vpb_hide_popup_boxes();">Cancel</a>-->
+</div>
+
+<br clear="all"><br clear="all">
+</form>
+</div>
+		</div></div></div>
+
+ 
+ 
+ }        <div id="table_top_menu">
+       <div id="menu_margin" align="left"><a href="@routes.Application.howitworks" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('howitworks','','@routes.Assets.at("images/images/index_menu_how_it_work_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_how_it_work_01.jpg")" name="howitworks" width="113" height="29" border="0" id="howitworks" /></a><img src="@routes.Assets.at("images/images/index_menu_why_it_matters_02.jpg")" name="whyitmatters" width="128" height="29" border="0" id="whyitmatters" /><a href="@routes.Application.getDefaultReport" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('viewmyreport','','@routes.Assets.at("images/images/index_menu_view_my_report_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_view_my_report_01.jpg")" name="viewmyreport" width="128" height="29" border="0" id="viewmyreport" /></a><a href="@routes.Application.viewsample" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('viewsamplereport','','@routes.Assets.at("images/images/index_menu_view_sample_report_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_view_sample_report_01.jpg")" name="viewsamplereport" width="160" height="29" border="0" id="viewsamplereport" /></a><a href="@routes.Application.aboutus" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('aboutus','','@routes.Assets.at("images/images/index_menu_about_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_about_01.jpg")" name="aboutus" width="85" height="29" border="0" id="aboutus" /></a>
+   
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</div>
+<!--Eof Header-->
+
+
+
+<!--Start Content-->
+<div id="wrapper" class="clearfix">
+<div id="left_col" >
+
+<div id="about_sub_heading1">why it matters</div>
+<div class="cont_nrml">Making the right financial choices is important to your financial future. By modeling your finances, you can better prepare for opportunities and economic storms. Forecast finances out five or fifteen years and see how to change the future to your favor! Confidently make informed decisions to set you on the right path to achieve your financial- and life-goals.<br /><br />
+
+Personal Economics modeling tool is becoming increasingly valuable and relevant to consumers of all ages and stages in life. It allows for a quick and simple way to visualize future economic circumstances based on a combination of factors within a person's control and outside a person's control. As the saying goes, "knowledge is power" and Personal Economics puts economic decision-making knowledge and power into the hands of ordinary consumers, giving them the ability to take control of their financial future despite the sometimes tumultuous economic climate in the world around us.</div>	
+ <div class="abouts_cont1brd">The Possibilities Are Endless</div>
+ <div class="cont_nrml">You can model the financial effects of key decisions, and the compare these scenarios against your current situation and your future financial goals. Model scenarios such as:</div>
+ 
+
+ 
+ <div id="menu">
+ 								  <ul><li>Refinancing your home</li></ul>
+                                  <ul><li>Changing your investments</li></ul>
+                                  <ul><li>Going to College </li></ul>
+                                  <ul><li>Buying a car</li></ul>
+                                  <ul><li>Marriage/Divorce/Partners</li></ul>
+                                  <ul><li>Home Ownership</li></ul>
+                                  <ul><li>Natural Disasters and Unexpected Events</li></ul>
+                                  <ul><li>Starting/Losing a job</li></ul>
+                                  <ul><li>Starting/Losing a Business</li></ul>
+                                  <ul><li>Planning for retirement/retiring</li></ul>
+                                  <ul><li>Death of a Family Members</li></ul>
+ </div>
+
+ <div class="cont_nrml">The <u class="nlink_cont">current version</u> of the tool uses standard scenarios. However, we will shortly release the full version which allows for nearly limitless combinations  of  &ldquo;what if&rdquo; scenarios.<br />
+                            <br />
+                            <u class="nlink_cont">Contact us to  be notified as  new  features are added.</u></div>
+</div>
+
+<div  id="right_col">
+<div  class="cont_nrml"><img src="@routes.Assets.at("images/images/whyitmatters.jpg")" width="350" height="233" /></div>
+<div style="height:2px;"></div>
+<div class="abouts_contactustab">Managing Risk and Ensuring Financial Success</div>
+
+<div class="cont_nrml">
+Managing financial risk in today's environment can be overwhelming to even those with extensive financial training. Future View gives both the novice and the expert a set of powerful tools to model the effects of both planned and unplanned events. What would happen to my financial plans if inflation goes up suddenly? Is there a realistic timeframe when I can plan to retire? Would the cost of another degree be worthwhile over the long run? These questions and many more can now be modeled and compared with this powerful new financial modeling tool.
+</div>
+
+</div>
+</div>
+<!-- Eof Conent-->
+
+<div id="about_img"></div>
+<!--Start Footer-->
+<div id="footer">
+
+<div class="text-bot" >&copy; Copyright 2012 by FrontPaw Solutions, LLC. </div>
+<div class="footer_terms"><a href="@routes.Application.privacypolicy">Privacy Policy</a> | <a href="@routes.Application.legalstatement">Legal Statement</a> &nbsp;| <a href="@routes.Application.termsandservice">Terms of Use</a></div>
+
+</div>
+
+<!--Eof Footer-->
+
+</div>
+ 
+</body>
+</html>

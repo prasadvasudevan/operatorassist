@@ -1,0 +1,811 @@
+@(name: String,forecastReportData: Array[Array[String]], dateSize: Integer, menu: String,dateval : String)
+<head>
+<title>Front Paw</title>
+<link  href="@routes.Assets.at("stylesheets/style_new.css")" rel="stylesheet" type="text/css" />
+<link href="@routes.Assets.at("css/style.css")" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--<script language="javascript" type="text/javascript" src="js/vpb_script.js"></script>--><!--login alert box code ends-->
+<script type="text/javascript">
+var chartSeries1 = [];
+var chartSeries2 = [];
+var k=0;
+
+@for(rowIndex<-forecastReportData.indices){
+	@defining(rowIndex) { i =>	
+			
+		  	var chartplots = JSON.parse($("<div/>").html('@forecastReportData(i)(0)').text());//forecastReport[i][0];
+	   		var eventData =  JSON.parse($("<div/>").html('@forecastReportData(i)(1)').text());//forecastReport[i][1];
+	   		var strategyData = JSON.parse($("<div/>").html('@forecastReportData(i)(2)').text());//forecastReport[i][2];
+	   	//	alert(eventData);
+	   		
+	   		chartSeries1.push({name:chartplots[0].modelName,data:chartplots[0].values,id:'dataseries'+k});
+	   		
+	   		chartSeries2.push({name:chartplots[1].modelName,data:chartplots[1].values,id:'dataseries'+k});				  
+	   		
+	   	//Push all the event data and strategy data in to array to easily access in graph implemented as part of new xml- 07/24
+	   	   var eventDat = [];
+		   //var ebbtxt = '';
+	   		for(var ed=0;ed<eventData.length;ed++)  {
+				//alert('ed = ' + ed + eventData[ed].eventDate[0]);
+	   			if(!eventData[ed].eventDate || !eventData[ed].eventDate[0]){
+					//alert(ed);
+	   				continue;
+				}	
+	   			if(eventData[ed].eventType=="EbbUserSetParamEvent"){
+				//alert(eventData[ed].userName.replace(/\\n/g, '<br>'));
+				//ebbtxt = ebbtxt +  eventData[ed].userName+"<br>"+eventData[ed].ebbName+"<br>"+eventData[ed].ebbUserName+"<br>"+eventData[ed].ebbUserSetParamName+":"+eventData[ed].eventName;
+				ebbtxt = eventData[ed].userName.replace(/\\n/g, "</br>");
+	   			eventDat.push({ x : eventData[ed].eventDate[0],	
+	   						  title :'UE' ,	
+	   						  useHTML :true,
+	   						  text : ebbtxt
+	   						  });
+				} 
+				if(eventData[ed].eventType=="GeneralEvent"){
+	   				var Gparams=[];
+	   				for(var p=0;p<eventData[ed].params.param.length;p++){
+	   					Gparams.push(eventData[ed].params.param[p].name+":"+eventData[ed].params.param[p].value+"<br>");
+	   				}
+		   			eventDat.push({ x : eventData[ed].eventDate[0],title :'UE' , useHTML :true,	
+		   						  text : eventData[ed].userName.replace(/\\n/g, '</br>')+"</br>"+Gparams.join('')
+		   						  });
+		   		} 
+	   			
+	   		}
+	   			//console.log(eventDat);
+							  
+
+			//alert(ebbtxt);
+	   		var strategyDat = [];
+	   		for(var sd = 0 ; sd < strategyData.length; sd++)  {
+	   			if(!strategyData[sd].strategyDate)
+	   				continue;	
+	   			var Sparams=[];
+   				for(var p=0;p<strategyData[sd].params.param.length;p++){
+   					Sparams.push(strategyData[sd].params.param[p].name+":"+strategyData[sd].params.param[p].value+"<br>");
+   				}
+	   			strategyDat.push({ x : strategyData[sd].strategyDate[0],	
+	   						  title :'SE' ,	
+	   						  text : strategyData[sd].userName+"<br>"+strategyData[sd].name+"<br>"+Sparams.join('')
+	   						  },
+	   						  { x : strategyData[sd].strategyDate[strategyData[sd].strategyDate.length-1],	
+	   							  title :'SE' ,	
+	   							  text : strategyData[sd].userName+"<br>"+strategyData[sd].name+"<br>"+Sparams.join('')
+	   							  });
+	   		
+	   		}
+	   		
+	   		chartSeries1.push({
+				type : 'flags',
+				data : eventDat, 
+				onSeries : 'dataseries'+k,
+				shape : 'circlepin',
+				width : 16,
+				color: '#5F86B3',
+				fillColor: '#5F86B3',
+				style: { 
+		        	color: 'white'
+		        },
+		        states: {
+		        	hover: {
+		        		fillColor: '#395C84' 
+		        	}
+		        }
+          },{
+				type : 'flags',
+				data : strategyDat, 
+				onSeries : 'dataseries'+k,
+				shape : 'squarepin',
+				width : 40,
+				color: '#F54914',
+				fillColor: '#F54914',
+				style: { 
+		        	color: 'white'
+		        },
+		        states: {
+		        	hover: {
+		        		fillColor: '#F5142B'
+		        	}
+		        }
+          });
+	   		 chartSeries2.push({
+				type : 'flags',
+				data : eventDat, 
+				onSeries : 'dataseries'+k,
+				shape : 'circlepin',
+				width : 16,
+				color: '#5F86B3',
+				fillColor: '#5F86B3',
+				style: { 
+		        	color: 'white'
+		        },
+		        states: {
+		        	hover: {
+		        		fillColor: '#395C84' 
+		        	}
+		        }
+          },{
+				type : 'flags',
+				data : strategyDat, 
+				onSeries : 'dataseries'+k,
+				shape : 'squarepin',
+				width : 40,
+				color: '#F54914',
+				fillColor: '#F54914',
+				style: { 
+		        	color: 'white'
+		        },
+		        states: {
+		        	hover: {
+		        		fillColor: '#F5142B'
+		        	}
+		        }
+          }); 
+	   		
+		++k;
+	
+	}
+	
+}
+</script>
+<!--script for vpb_script.js start-->
+<script language="javascript">
+$(document).ready(function() 
+{	
+	$("#vpb_pop_up_background").click(function()
+	{
+		$("#vpb_signup_pop_up_box").hide(); //Hides the sign-up box when clicked outside the form
+		$("#vpb_login_pop_up_box").hide(); //Hides the login box when clicked outside the form
+		$("#vpb_pop_up_background").fadeOut("slow");
+	});
+});
+
+//This function displays the sign-up box when called
+function vpb_show_sign_up_box()
+{
+	
+	$("#vpb_pop_up_background").css({
+		"opacity": "0.4"
+	});
+	$("#vpb_pop_up_background").fadeIn("slow");
+	$("#vpb_signup_pop_up_box").fadeIn('fast');
+	window.scroll(0,0);
+}
+
+
+//This function displays the login box when called
+function vpb_show_login_box()
+{
+	//alert("yes");
+	$("#vpb_pop_up_background").css({
+		"opacity": "0.4"
+	});
+	$("#vpb_pop_up_background").fadeIn("slow");
+	$("#vpb_login_pop_up_box").fadeIn('fast');
+	window.scroll(0,0);
+	
+	
+}
+
+
+//This function hides both the Sign-up Box and Login Box when called
+function vpb_hide_popup_boxes()
+{
+	$("#vpb_signup_pop_up_box").hide(); //Hides the sign-up box when clicked outside the form
+	$("#vpb_login_pop_up_box").hide(); //Hides the login box when clicked outside the form
+	$("#vpb_pop_up_background").fadeOut("slow");
+}
+</script>
+<!--Start Header-->
+<script type="text/javascript">
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+</head>
+@main("") {
+           <!--  <h3>Welcome @name</h3> -->
+      
+ <!--    <p class="buttons">
+        <a href="@routes.Application.login">Back to the form</a>
+    </p>
+    -->
+<script type="text/javascript">
+   var oneReport = false ;
+   
+   var menuSelect = JSON.parse($("<div/>").html('@menu').text());
+   var datesize = @dateSize;
+ // alert('datesize '+datesize);
+   var tickInt=0;
+   if(datesize!=0){
+   	 	tickInt = datesize/10;
+		//alert('tickInt ' + tickInt);
+	}	
+   else {
+	   	tickInt = 1;
+   }
+   
+		
+  //Chart for Total Income and 1st forecast parameter
+  $(function () {
+      $('#totalIncome').highcharts('StockChart',{
+          chart: {
+              type: 'spline',
+              marginRight: 20,
+              marginBottom: 100
+          },
+          credits: {
+        	  enabled: false,
+        	  Text: 'frontpaw.com',
+        	  href: 'http://demo.frontpaw.com'        	  
+          },
+          title: {
+              text: chartplots[0].measureType+":"+chartplots[0].name,
+              x: -20 //center
+          },
+          subtitle: {
+              text: 'Source: FrontPaw ForeCast',
+              x: -20
+          },
+          xAxis: {
+        	  type: 'datetime',
+        	  title: {
+        		  align:'high',
+                  text: 'Year (Unit='+tickInt+' months)',
+                  offset:70
+              },
+              tickInterval: (tickInt) * 31 * 24 * 3600 * 1000,
+              //tickPixelInterval: 100,
+              //categories: baseline[0].dates.date,
+              tickColor: '#FF0000',
+              tickWidth: 3,
+              labels: {
+                  rotation: -90,
+                  align: 'right',
+                  style: {
+                      fontSize: '10px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              },
+              
+              minPadding: 0.03,
+              maxPadding: 0.03
+          },
+          yAxis: {
+        	  lineWidth: 1,
+              offset: 30,
+              tickColor: '#FF0000',
+              tickWidth: 3,
+              startOnTick: false,
+              title: {
+                  text: 'Dollars ($)'
+                  
+              },
+              labels: {
+                  rotation: 0,
+                  align: 'right',
+                  style: {
+                      fontSize: '10px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              },
+              
+              minPadding: 0.1,
+              maxPadding: 0.1
+
+          },
+          tooltip: {
+        	  useHTML : true,
+              valuePrefix: '$'
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'top',
+              x: -10,
+              y: 100,
+              borderWidth: 1
+          },
+          plotOptions: {
+              spline: {
+                  lineWidth: 3,
+                  states: {
+                      hover: {
+                          lineWidth: 5
+                      }
+                  },
+                  marker: {
+                      enabled: false
+                  },
+               //   pointInterval: 365 * 24 * 3600 * 1000, // one Year
+                 // pointStart: Date.UTC(2012, 11, 0, 0, 0, 0)
+              }
+          },
+          series: chartSeries1
+          
+      });
+  });
+  if(!chartplots[1]){
+	  oneReport = true;	 
+	   
+  }else{  
+ //Chart for Total Expense  and 2nd forecast parameter
+   $(function () {
+	   
+      $('#totalExpsense').highcharts('StockChart',{
+          chart: {
+              type: 'spline',
+              marginRight: 80,
+              marginBottom: 100
+          },
+          credits: {
+        	  enabled: false,
+        	  Text: 'frontpaw.com',
+        	  href: 'http://demo.frontpaw.com'        	  
+          },
+          title: {
+              text: chartplots[1].measureType+":"+chartplots[1].name,
+              x: -10 //center
+          },
+          subtitle: {
+              text: 'Source: FrontPaw ForeCast',
+              x: -20
+          },
+          xAxis: {
+        	  type: 'datetime',
+        	  title: {
+        		  align:'high',
+        		  text: 'Year (Unit='+tickInt+' months)',
+                  offset:70
+              },
+              tickInterval: (tickInt) * 31 * 24 * 3600 *  1000,
+              //tickPixelInterval: 100,
+              //categories: baseline[0].dates.date,
+              tickColor: '#FF0000',
+              tickWidth: 3,
+              labels: {
+                  rotation: -90,
+                  align: 'right',
+                  style: {
+                      fontSize: '10px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              },
+              minPadding: 0.03,
+              maxPadding: 0.03
+          },
+          yAxis: {
+        	  lineWidth: 1,
+              offset: 30,
+              tickColor: '#FF0000',
+              tickWidth: 3,
+              startOnTick: false,
+              title: {
+                  text: 'Dollars ($)'
+                  
+              },
+              labels: {
+                  rotation: 0,
+                  align: 'right',
+                  style: {
+                      fontSize: '10px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              },
+              minPadding: 0.1,
+              maxPadding: 0.1           
+
+          },
+          tooltip: {
+              valuePrefix: '$'
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'top',
+              x: -10,
+              y: 100,
+              borderWidth: 1
+          },
+          plotOptions: {
+              spline: {
+                  lineWidth: 3,
+                  states: {
+                      hover: {
+                          lineWidth: 5
+                      }
+                  },
+                  marker: {
+                      enabled: false
+                  },
+               //   pointInterval: 365 * 24 * 3600 * 1000, // one Year
+                 // pointStart: Date.UTC(2012, 11, 0, 0, 0, 0)
+              }
+          },
+          series: chartSeries2
+      });
+      
+     
+  });
+   
+  }
+</script>
+<div id="pagewidth" class="front_border"  style="min-width: 400px; height: 400px;>
+
+<body onload="MM_preloadImages('@routes.Assets.at("images/images/index_menu_how_it_work_02.jpg")','@routes.Assets.at("images/images/index_menu_why_it_matters_02.jpg")','@routes.Assets.at("images/images/index_menu_view_my_report_02.jpg")','@routes.Assets.at("images/images/index_menu_view_sample_report_02.jpg")','@routes.Assets.at("images/images/index_menu_about_02.jpg")')">
+  <div id="header" class="one-edge-shadow">
+  <div id="header_logo"> <a href="index.html"><img src="@routes.Assets.at("images/images/logo.gif")" width="248" height="62" border="0"  /></a></div>
+  <div  id="header_menu">
+  <div id="table_top_right">
+  @if(session().get("user")=="operator"){
+      <div id="table_top_right">
+      <div align="right"><div id="welcome" style='background:url(@routes.Assets.at("images/images/index_top_right_box.jpg") no-repeat; padding-top:2px;' align="left">&nbsp; <img src="@routes.Assets.at("images/images/index_icon.jpg")" width="16" height="18" />
+	  
+        <div style="margin:0px; margin-top:-17px; padding-left:30px;">@session.get("user")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-bot2"><a href="@routes.Application.logout">Login</a></span>
+		</div></div></div>
+    </div>
+  }
+@if(session().get("user")!=null && session().get("user")!="operator"){    
+   <div id="table_top_right">
+      <div align="right"><div id="welcome" style='background:url(@routes.Assets.at("images/images/index_top_right_box.jpg") no-repeat; padding-top:2px;' align="left">&nbsp; <img src="@routes.Assets.at("images/images/index_icon.jpg")" width="16" height="18" />
+	  
+        <div style="margin:0px; margin-top:-17px; padding-left:30px;">@session.get("user")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-bot2"><a href="@routes.Application.aboutus">Contact Us</a> | <a href="feedback.html">Feedback</a> | <a href="faq.html">FAQ</a>| <a href="#">My Account</a> | <a href="@routes.Application.logout">Logout</a></span>
+		</div></div></div>
+    </div>
+  }else {
+ 
+ @if(session().get("user")!="operator") {
+    <div id="table_top_right_1">
+      <div align="right"><div id="welcome" style='background:url(@routes.Assets.at("images/images/index_top_right_box.jpg") no-repeat; padding-top:2px;' align="left">&nbsp; 
+	  
+        <div style="margin:0px; margin-top:-17px;padding-left:30px;">@session.get("user")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-bot2"><a href="@routes.Application.aboutus">Contact Us</a> | <a href="feedback.html">Feedback</a> | <a href="faq.html">FAQ </a> | <a href="javascript:void(0);" onClick="vpb_show_login_box();">Login</a>
+</span>
+		</div>
+		
+		
+		<!--login form popup box starts-->
+		<div id="vpb_pop_up_background"></div>
+		<div id="vpb_login_pop_up_box" class="vpb_signup_pop_up_box">
+		<form method="post" action="@routes.Application.checkLogin" >
+<div align="left" style="font-family:Verdana, Geneva, sans-serif; font-size:16px; font-weight:bold;">Users Login</div><br clear="all">
+<!--<div align="left" style="font-family:Verdana, Geneva, sans-serif; font-size:11px;">To exit this login box, click on the cancel button or outside this box..</div><br clear="all"><br clear="all"><div id="one"></div>-->
+
+<div style="width:130px; padding-top:10px;margin-left:10px;float:left;" align="left">Your Username:</div>
+<div style="width:270px;float:left;" align="left"><input type="text" id="usernames" name="usernames" value="" class="vpb_textAreaBoxInputs"></div><br clear="all"><br clear="all"><div id="one"></div>
+
+<div style="width:130px; padding-top:10px;margin-left:10px;float:left;" align="left">Your Password:</div>
+<div style="width:270px;float:left;" align="left"><input type="password" id="passs" name="passs" value="" class="vpb_textAreaBoxInputs"></div><br clear="all"><br clear="all"><div id="two"></div>
+
+<div style="width:100px; padding-top:10px;margin-left:10px;float:left;" align="left">&nbsp;</div>
+<div style="width:300px;float:left;" align="center">
+
+<!--<a href="javascript:void(0);" class="vpb_general_button" onClick="alert('Hello There!\n\n There is no functionality associated with the button you have just clicked. \n\nThis is just a demonstration of Pop-up Boxes and that\'s all.\n\nThanks.');">Login</a>-->
+<!--<a href="#" class="vpb_general_button" onClick="login(this.form);">Login</a>
+-->
+<input type="image" src="@routes.Assets.at("images/images/login.jpg")" alt="Send Email" width="47" height="20" class="img_top_pad"/>
+<img src="@routes.Assets.at("images/images/cancel.jpg")" alt="Send Email" width="47" height="20" class="img_top_pad" onClick="vpb_hide_popup_boxes();"/>
+
+
+<!--<a href="javascript:void(0);" class="vpb_general_button" onClick="vpb_hide_popup_boxes();">Cancel</a>-->
+</div>
+
+<br clear="all"><br clear="all">
+</form>
+</div>
+		</div></div></div>
+}
+}
+    </div>
+
+     
+ 		@if(session().get("user")!="operator"){
+ 		 <div id="table_top_menu">
+         <div id="menu_margin" align="left"><a href="@routes.Application.howitworks" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('howitworks','','@routes.Assets.at("images/images/index_menu_how_it_work_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_how_it_work_01.jpg")" name="howitworks" width="113" height="29" border="0" id="howitworks" /></a><a href="@routes.Application.whyitmatters" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('whyitmatters','','@routes.Assets.at("images/images/index_menu_why_it_matters_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_why_it_matters_01.jpg")" name="whyitmatters" width="128" height="29" border="0" id="whyitmatters" /></a><img src="@routes.Assets.at("images/images/index_menu_view_my_report_02.jpg")" name="viewmyreport" width="128" height="29" border="0" id="viewmyreport" /><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('viewsamplereport','','@routes.Assets.at("images/images/index_menu_view_sample_report_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_view_sample_report_01.jpg")" name="viewsamplereport" width="160" height="29" border="0" id="viewsamplereport" /></a><a href="@routes.Application.aboutus" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('aboutus','','@routes.Assets.at("images/images/index_menu_about_02.jpg")',1)"><img src="@routes.Assets.at("images/images/index_menu_about_01.jpg")" name="aboutus" width="85" height="29" border="0" id="aboutus" /></a>
+      </div>
+      </div>
+      }
+    </div>
+  </div>
+<br></br><br>
+<div >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="imageborder"><input type="Checkbox" /><span class="datasource2">View All in OnePage</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="@routes.Application.getDefaultReport" class="vertical-align:bottom;" ><img src="@routes.Assets.at("images/images/index_sub_output_data_02.jpg")"/></a ><a href="@routes.Application.comparisiondisplay" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('comparision','','@routes.Assets.at("images/images/index_sub_comparision_display_01.jpg")',1)"><img name="comparision" id="comparision" src="@routes.Assets.at("images/images/index_sub_comparision_display_02.jpg")"/></a><a href="@routes.Application.getBaselinesnapShot" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('baseline','','@routes.Assets.at("images/images/index_sub_baseline_snap_shot_01.jpg")',2)"><img name="baseline" id="baseline" src="@routes.Assets.at("images/images/index_sub_baseline_snap_shot_02.jpg")"/></a></div><br>
+<!-- <div class="datasource_content1"><Strong class="datasource1">Scenario Description</Strong><p>Loremt ipsum dolor sit amet,consectetuer adipiscing eit,sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud excercitation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><p>Duis autem velenum iriure dolor i hendrerit in vulputate velit esse moestie consequant,vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odilo disgissim qui praesent iuptatum Zril delenit augue duis dolore te feugait nulla facilisi.</p><div align="right"><a href="#"><img src="@routes.Assets.at("images/images/index_more_button.jpg")"/></a></div></div>--> 
+<br></br></br>	
+<!--Eof Header--> 
+   <!-- Select and Forecast Parameters select -->
+
+    <form name="dataFrom"  action="/reloadReport">
+     	
+	<div id="totalExpsenseSelect" style="min-width: 400px; margin: 0 auto;float:left;width: 100%;">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='forecastParams1' name="forecastParams1" value="" style="background-color:#f6f6f6;font-family:Trebuchet MS,Arial, Helvetica, sans-serif;font-size:12px;width:85%" onchange="document.forms.dataFrom.submit();"></select>
+	</div>  	
+	<br></br>
+	<!-- HighCharts DIV location -->    
+	<div class="datasource_content2" style="min-width: 400px; height: 400px;">
+		<div id="totalExpsense" style="min-width: 400px; height: 400px; margin: 1 auto;float:left;padding-left:8px;width:100%"></div>
+	</div>
+	<br></br>
+	<div id="totalIncomeSelect" style="min-width: 400px;  margin: 0 auto;float:left;width: 100%">
+   	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='forecastParams' name="forecastParams" value="" style="background-color:#f6f6f6;font-family:Trebuchet MS,Arial, Helvetica, sans-serif;font-size:12px;width:85%" onchange="document.forms.dataFrom.submit();" ></select>
+   	</div>
+   	<br>
+   	<br>
+   	<div class="datasource_content2" style="min-width: 400px; height: 400px;">
+	<div id="totalIncome" style="min-width: 400px; height: 400px; margin: 1 auto;float:left;padding-right:8px;width:100%;"></div>
+		</div>
+   	<br>
+<div id="dateSelect" class="datasource_content1">
+		<font class="datasource_content"><b>Select Date Range</b>
+		<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio"  name="dataCount" value="1" onclick="document.forms.dataFrom.submit();">1 Months
+		<input type="radio"  name="dataCount" value="2" onclick="document.forms.dataFrom.submit();">2 Months
+		<input type="radio"  name="dataCount" value="4" onclick="document.forms.dataFrom.submit();">4 Months
+		<input type="radio"  name="dataCount" value="6" onclick="document.forms.dataFrom.submit();">6 Months
+		<input type="radio"  name="dataCount" value="8" onclick="document.forms.dataFrom.submit();">8 Months
+		<input type="radio"  name="dataCount" value="12" onclick="document.forms.dataFrom.submit();">12 Months
+		<input type="radio"  name="dataCount" value="@dateval" onclick="document.forms.dataFrom.submit();">All 
+		 
+		</p>
+		</font>
+	</div>   			
+   </form>
+<br></br><br></br><br></br><br></br>
+<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br> <br>
+<script type='text/javascript'>
+
+//Script for select 1st forecast paramteres
+
+var option=$('<option></option>');
+option.attr('value','sfp,sfp');
+option.text('Select Forecast Parameters');
+$('#forecastParams').append(option);
+
+var ratiogroup=$('<optgroup ></optgroup >');
+ratiogroup.attr('label',"Ratio");
+var values=menuSelect.Ratio;
+var ratio="Ratio,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',ratio+values[v]);
+    option.text(values[v]);
+    ratiogroup.append(option);
+} 
+$('#forecastParams').append(ratiogroup);
+var incomegroup=$('<optgroup ></optgroup >');
+incomegroup.attr('label',"Income");
+var values=menuSelect.Income;
+var income="Income,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',income+values[v]);
+    option.text(values[v]);
+    incomegroup.append(option);
+} 
+$('#forecastParams').append(incomegroup);
+var expensegroup=$('<optgroup ></optgroup>');
+expensegroup.attr('label',"Expense");
+var values=menuSelect.Expense;
+var expense="Expense,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',expense+values[v]);
+    option.text(values[v]);
+    expensegroup.append(option);
+} 
+$('#forecastParams').append(expensegroup);
+var assetroup=$('<optgroup ></optgroup>');
+assetroup.attr('label',"Asset");
+var values=menuSelect.Asset;
+var asset="Asset,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',asset+values[v]);
+    option.text(values[v]);
+    assetroup.append(option);
+} 
+$('#forecastParams').append(assetroup);
+var liabilitygroup=$('<optgroup ></optgroup>');
+liabilitygroup.attr('label',"Liability");
+var values=menuSelect.Liability;
+var liability="Liability,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',liability+values[v]);
+    option.text(values[v]);
+    liabilitygroup.append(option);
+} 
+$('#forecastParams').append(liabilitygroup);
+var inflowgroup=$('<optgroup ></optgroup >');
+inflowgroup.attr('label',"Inflow");
+var values=menuSelect.Inflow;
+var inflow="Inflow,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',inflow+values[v]);
+    option.text(values[v]);
+    inflowgroup.append(option);
+} 
+$('#forecastParams').append(inflowgroup);
+var outflowgroup=$('<optgroup ></optgroup >');
+outflowgroup.attr('label',"Outflow");
+var values=menuSelect.Outflow;
+var outflow="Outflow,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',outflow+values[v]);
+    option.text(values[v]);
+    outflowgroup.append(option);
+} 
+$('#forecastParams').append(outflowgroup);
+
+//Script for select 2nd forecast paramteres
+
+var option=$('<option></option>');
+option.attr('value','sfp,sfp');
+option.text('Select Forecast Parameters');
+$('#forecastParams1').append(option);
+
+var ratiogroup=$('<optgroup ></optgroup >');
+ratiogroup.attr('label',"Ratio");
+var values=menuSelect.Ratio;
+var ratio="Ratio,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',ratio+values[v]);
+    option.text(values[v]);
+    ratiogroup.append(option);
+} 
+$('#forecastParams1').append(ratiogroup);
+var incomegroup=$('<optgroup ></optgroup >');
+incomegroup.attr('label',"Income");
+var values=menuSelect.Income;
+var income="Income,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',income+values[v]);
+    option.text(values[v]);
+    incomegroup.append(option);
+} 
+$('#forecastParams1').append(incomegroup);
+var expensegroup=$('<optgroup ></optgroup>');
+expensegroup.attr('label',"Expense");
+var values=menuSelect.Expense;
+var expense="Expense,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',expense+values[v]);
+    option.text(values[v]);
+    expensegroup.append(option);
+} 
+$('#forecastParams1').append(expensegroup);
+var assetroup=$('<optgroup ></optgroup>');
+assetroup.attr('label',"Asset");
+var values=menuSelect.Asset;
+var asset="Asset,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',asset+values[v]);
+    option.text(values[v]);
+    assetroup.append(option);
+} 
+$('#forecastParams1').append(assetroup);
+var liabilitygroup=$('<optgroup ></optgroup>');
+liabilitygroup.attr('label',"Liability");
+var values=menuSelect.Liability;
+var liability="Liability,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',liability+values[v]);
+    option.text(values[v]);
+    liabilitygroup.append(option);
+} 
+$('#forecastParams1').append(liabilitygroup);
+var inflowgroup=$('<optgroup ></optgroup >');
+inflowgroup.attr('label',"Inflow");
+var values=menuSelect.Inflow;
+var inflow="Inflow,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',inflow+values[v]);
+    option.text(values[v]);
+    inflowgroup.append(option);
+} 
+$('#forecastParams1').append(inflowgroup);
+var outflowgroup=$('<optgroup ></optgroup >');
+outflowgroup.attr('label',"Outflow");
+var values=menuSelect.Outflow;
+var outflow="Outflow,";
+for(v in values){
+	var option=$('<option></option>');
+    option.attr('value',outflow+values[v]);
+    option.text(values[v]);
+    outflowgroup.append(option);
+} 
+$('#forecastParams1').append(outflowgroup);
+
+
+var qs = (function(a) {
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i)
+    {
+        var p=a[i].split('=');
+        if (p.length != 2) continue;
+        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    }
+    return b;
+})(window.location.search.substr(1).split('&'));
+
+var search = qs["forecastParams"];
+var size = qs["dataCount"];
+var search1 = qs["forecastParams1"];
+//alert(search);
+if(!search){
+		$('#forecastParams').val("Ratio,Net Income");
+}	
+else{
+		$('#forecastParams').val(search);
+}
+	
+var radioArr = $("input").attr('name','dataCount');
+if(!size)
+	radioArr[7].checked='checked';
+for(i = 0 ; i < radioArr.length;i++){
+	if(radioArr[i].value == size){
+		radioArr[i].checked='checked';
+	}
+}
+
+if(!search1){
+		$('#forecastParams1').val("Ratio,Net Worth");
+}
+	
+else{
+	$('#forecastParams1').val(search1);
+}
+	
+
+
+</script>   
+<script>
+     $().ready(function(){
+    	 
+    	 $("#forecastParams").chosen({no_results_text: "Forecast Parameter not found!"});
+    	 $("#forecastParams1").chosen({no_results_text:"Forecast Parameter not found!"});
+    	 $("#dataCountId").chosen({no_results_text: "Select the range specified!"});
+    	 
+    /*  if(oneReport){
+    	 $("#totalExpsense").hide();
+    	 
+     }
+     else
+    	 {
+    	 $("#totalExpsense").show();
+    	 } */
+     });
+</script>
+    
+
+</body>
+    
+}
