@@ -2,3 +2,38 @@ This is your new Play 2.1 application
 =====================================
 
 This file will be packaged with your application, when using `play dist`.
+
+
+add in APP_HOME/project/plugins.sbt:
+For Play 2.1.x and more applications:
+addSbtPlugin("com.github.play2war" % "play2-war-plugin" % "<Play2War_version>")
+For Play 2.0.x applications:
+addSbtPlugin("com.github.play2war" % "play2-war-plugin" % "0.8.1")
+ 
+ 
+In APP_HOME/project/Build.scala, add the following code
+ 
+ 
+import ... // other imports
+import com.github.play2war.plugin._
+...
+In APP_HOME/build.sbt, add the following code
+ 
+ 
+import ... // other imports
+import com.github.play2war.plugin._
+...
+ 
+ 
+In APP_HOME/project/Build.scala  add the following code
+ 
+ 
+val appVersion      = "1.0-SNAPSHOT"
+...
+val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA)
+  .settings(Play2WarPlugin.play2WarSettings: _*)
+  .settings(
+    // ... Your own settings here
+)
+
+after making all these changes, then do 'play war' from the command prompt. it generates the war file and puts it in the target directory
